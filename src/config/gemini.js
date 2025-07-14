@@ -44,6 +44,7 @@ export default async function runChat(prompt) {
   
   for await (const chunk of response) {
     console.log(chunk.text);
+    return chunk.text;
   }
 }
 
