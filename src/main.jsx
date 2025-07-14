@@ -5,7 +5,7 @@ import App from './App.jsx'
 
 //import { ContextProvider } from './context/context.jsx';
 
-import ContextProvider from './context/context.jsx'; 
+import ContextProvider from './context/Context'; 
 
 
 createRoot(document.getElementById('root')).render(
