@@ -1,7 +1,53 @@
 //const apikey="AIzaSyBhwkQ3MlVy6Mw87vjMFr4UNyx2H4GZiRQ";
 
+import  { GoogleGenAI }  from '@google/genai';
 
-import {
+export default async function runChat(prompt) {
+  const ai = new GoogleGenAI({
+    apiKey: "AIzaSyBhwkQ3MlVy6Mw87vjMFr4UNyx2H4GZiRQ",
+  });
+
+  const tools = [
+    {
+      googleSearch: {}
+    },
+  ];
+
+  const config = {
+    thinkingConfig: {
+      thinkingBudget: -1,
+    },
+    tools,
+    responseMimeType: 'text/plain',
+  };
+
+  const model = 'gemini-2.5-pro';
+  
+  const contents = [
+    {
+      role: 'user',
+      parts: [
+        {
+          text: prompt,
+        },
+      ],
+    },
+  ];
+
+  const response = await ai.models.generateContentStream({
+    model,
+    config,
+    contents,
+  });
+
+  let fileIndex = 0;
+  
+  for await (const chunk of response) {
+    console.log(chunk.text);
+  }
+}
+
+/*import {
     GoogleGenerativeAI,
     HarmCategory,
     HarmBlockThreshold,
@@ -51,4 +97,4 @@ async function runChat(prompt){
     console.log(response.text());
 }
 
-export default runChat;
+export default runChat;*/
